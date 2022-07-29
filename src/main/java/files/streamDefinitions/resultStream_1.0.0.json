@@ -1,0 +1,34 @@
+{
+  "name": "resultStream",
+  "version": "1.0.0",
+  "nickName": "",
+  "description": "",
+  "metaData": [
+    {
+      "name": "eventID",
+      "type": "STRING"
+    }
+  ],
+  "payloadData": [
+    {
+      "name": "domainID",
+      "type": "STRING"
+    },
+    {
+      "name": "creativeID",
+      "type": "STRING"
+    },
+    {
+      "name": "domainViews",
+      "type": "INT"
+    },
+    {
+      "name": "creativeViews",
+      "type": "INT"
+    },
+    {
+      "name": "timestamp",
+      "type": "LONG"
+    }
+  ]
+}

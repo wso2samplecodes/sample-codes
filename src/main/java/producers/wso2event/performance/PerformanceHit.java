@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+package producers.wso2event.performance;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.wso2.carbon.databridge.agent.AgentHolder;
+import org.wso2.carbon.databridge.agent.DataPublisher;
+import org.wso2.carbon.databridge.commons.StreamDefinition;
+import producers.wso2event.DataPublisherUtil;
+
+import java.util.Map;
+
+public class PerformanceHit {
+    private static Log log = LogFactory.getLog(PerformanceHit.class);
+
+    static DataPublisher dataPublisherH;
+    static StreamDefinition streamDefinitionH;
+    static int eventsH;
+    static int delayH;
+
+    public static void main(String[] args) {
+
+//        System.out.println(Arrays.deepToString(args));
+        try {
+
+            // The data-bridge receiver
+//            Wso2EventServer agentServerResultStream = new Wso2EventServer(8461, true);
+//            Thread agentServerThread = new Thread(agentServerResultStream);
+//            agentServerThread.start();
+
+
+            System.out.println("Starting WSO2 Event ClientImpression");
+            AgentHolder.setConfigPath("/Users/ramilu/wso2/git/sample/src/main/java/files/configs/data-agent" +
+                                      "-config.xml");
+            DataPublisherUtil.setTrustStoreParams();
+            String protocol = "thrift";
+            String host = "localhost";
+            String port = "7611";
+            String username = "admin";
+            String password = "admin";
+            //String sampleNumber = args[6];
+            String filePath;
+            //filePath = DataPublisherUtil.getEventFilePath(sampleNumber, streamId, filePath);
+            //create data publisher
+            dataPublisherH = new DataPublisher(protocol, "tcp://" + host + ":" + port, null, username, password);
+
+            String streamIdH = "hitStream:1.0.0";
+
+            Map<String, StreamDefinition> streamDefinitions = DataPublisherUtil.loadStreamDefinitions();
+            streamDefinitionH = streamDefinitions.get(streamIdH);
+
+            eventsH = 100000;
+            delayH = 2;
+
+            if (streamDefinitionH == null) {
+                throw new Exception("StreamDefinition not available for stream " + streamIdH);
+            } else {
+                log.info("StreamDefinition used :" + streamDefinitionH);
+            }
+
+//            Runnable hitPublisher = new RunnableHit(dataPublisherH, streamDefinitionH, eventsH, delayH);
+//            Thread t1 = new Thread(hitPublisher);
+//            t1.start();
+
+            Runnable impressionPublisher = new RunnableImpression(dataPublisherH, streamDefinitionH,
+                                                                               eventsH, delayH);
+            Thread t2 = new Thread(impressionPublisher);
+            t2.start();
+
+        } catch (Throwable e) {
+            log.error(e);
+        }
+    }
+}

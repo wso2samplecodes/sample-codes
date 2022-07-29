@@ -1,0 +1,31 @@
+{
+  "streamId": "hitStream:1.0.0",
+  "name": "hitStream",
+  "version": "1.0.0",
+  "nickName": "",
+  "description": "",
+  "metaData": [
+    {
+      "name": "eventID",
+      "type": "STRING"
+    },
+    {
+      "name": "tenantID",
+      "type": "STRING"
+    },
+    {
+      "name": "time",
+      "type": "LONG"
+    },
+    {
+      "name": "tz",
+      "type": "INT"
+    }
+  ],
+  "payloadData": [
+    {
+      "name": "userID",
+      "type": "STRING"
+    }
+  ]
+}

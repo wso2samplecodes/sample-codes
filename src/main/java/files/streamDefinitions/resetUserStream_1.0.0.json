@@ -1,0 +1,29 @@
+{
+  "streamId": "resetUserStream:1.0.0",
+  "name": "resetUserStream",
+  "version": "1.0.0",
+  "metaData": [
+    {
+      "name": "eventID",
+      "type": "STRING"
+    },
+    {
+      "name": "tenantID",
+      "type": "STRING"
+    },
+    {
+      "name": "time",
+      "type": "LONG"
+    },
+    {
+      "name": "tz",
+      "type": "INT"
+    }
+  ],
+  "payloadData": [
+    {
+      "name": "userID",
+      "type": "STRING"
+    }
+  ]
+}
